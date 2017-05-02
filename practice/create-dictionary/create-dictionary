@@ -1,3 +1,37 @@
 #!/bin/bash
 
-echo creating dictionary...
+dictionary_folder="dictionary"
+dictionary_name=`date +%Y-%m-%d-%H-%M-%S-dictionary.txt`
+manual_url='https://tiswww.case.edu/php/chet/bash/bashref.html'
+manual_file='bash-ref-manual.html'
+
+if [ ! -d dictionary_folder ]; then
+    mkdir -pv -m 755 $dictionary_folder
+else
+    echo using directory: [$dictionary_folder]
+fi
+
+if [ $? != 0 ]; then
+    echo problems with using dictionary folder [$dictionary_folder]
+    exit 1
+fi
+
+touch $dictionary_folder/$dictionary_name
+
+if [ $? != 0 ]; then
+    echo problems with access to dictionary file [$dictionary_folder/$dictionary_name]
+    exit 1
+else
+    echo using dictionary file [$dictionary_folder/$dictionary_name]
+fi
+
+curl -o $dictionary_folder/$manual_file $manual_url
+
+if [ $? != 0 ]; then
+    echo problems downloading [$manual_url]
+    exit 1
+fi
+
+
+echo cleaning...
+rm $dictionary_folder/$manual_file
