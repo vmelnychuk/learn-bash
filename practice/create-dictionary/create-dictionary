@@ -33,5 +33,6 @@ if [ $? != 0 ]; then
 fi
 
 
-echo cleaning...
-rm $dictionary_folder/$manual_file
+
+#echo cleaning...
+#rm $dictionary_folder/$manual_file
